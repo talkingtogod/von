@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Please Come Back, Von</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ff8a8a, #ff5e87, #ff2a76, #ff0062);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(0px);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+                box-shadow: 0 8px 32px rgba(255, 105, 180, 0.4);
+            }
+            50% {
+                transform: translateY(-20px);
+                box-shadow: 0 25px 50px rgba(255, 105, 180, 0.2);
+            }
+            100% {
+                transform: translateY(0px);
+                box-shadow: 0 8px 32px rgba(255, 105, 180, 0.4);
+            }
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+        
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 18px 45px;
+            background: linear-gradient(45deg, #ff3e9d, #ff0844);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-7px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(255, 105, 180, 0.6);
+            letter-spacing: 1px;
+        }
+        
+        .btn:active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        }
+        
+        .btn.no {
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+            backdrop-filter: blur(5px);
+        }
+        
+        .heart {
+            position: absolute;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite, pulse 2s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .memories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px 0;
+            perspective: 1000px;
+        }
+        
+        .memory {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            animation: memoriesIntro 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: rotateY(40deg) translateZ(-100px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .memory:nth-child(1) { animation-delay: 0.2s; }
+        .memory:nth-child(2) { animation-delay: 0.4s; }
+        .memory:nth-child(3) { animation-delay: 0.6s; }
+        
+        @keyframes memoriesIntro {
+            to {
+                opacity: 1;
+                transform: rotateY(0) translateZ(0);
+            }
+        }
+        
+        .memory:hover {
+            transform: scale(1.1) rotateY(-10deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .heartbeat {
+            display: inline-block;
+            animation: heartbeat 1.2s infinite;
+            color: #ff3e9d;
+        }
+        
+        .moving-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .moving-heart {
+            position: absolute;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 170, 0.5));
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translate(0, -50px) rotate(0deg) scale(0.6);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--translateX), calc(100vh + 50px)) rotate(var(--rotate)) scale(var(--scale));
+                opacity: 0.2;
+            }
+        }
+        
+        #message {
+            margin-top: 30px;
+            font-size: 1.8rem;
+            height: 60px;
+            opacity: 0;
+            transition: opacity 0.8s, transform 0.8s;
+            transform: translateY(20px);
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        #message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            animation: confetti-fall linear forwards;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+        
+        .love-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="moving-hearts" id="movingHearts"></div>
+    <div class="love-particles" id="loveParticles"></div>
+    
+    <div class="container">
+        <h1>Von... <span class="heartbeat">❤️</span></h1>
+        <p>I miss how we used to be. The laughter, the love, and everything in between.</p>
+        <p>Can we try again? I promise to make every moment count.</p>
+        
+        <div class="memories">
+            <div class="memory">❤️</div>
+            <div class="memory">💑</div>
+            <div class="memory">💘</div>
+        </div>
+        
+        <a href="#yes" class="btn" id="yesBtn">Yes, let's try again</a>
+        <a href="#" class="btn no" id="noBtn">I need time</a>
+        
+        <div id="message"></div>
+    </div>
+    
+    <script>
+        // Create falling hearts
+        const movingHearts = document.getElementById('movingHearts');
+        const heartIcons = ['❤️', '💖', '💕', '💗', '💓', '💞'];
+        const loveParticles = document.getElementById('loveParticles');
+        
+        // Create heart particles
+        for (let i = 0; i < 30; i++) {
+            createHeart();
+        }
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('moving-heart');
+            
+            // Random properties
+            const randomIcon = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+            const randomLeft = Math.random() * 100;
+            const randomSize = Math.random() * 30 + 10;
+            const randomDuration = Math.random() * 15 + 5;
+            const randomDelay = Math.random() * 8;
+            const translateX = (Math.random() - 0.5) * 300;
+            const rotate = (Math.random() - 0.5) * 360;
+            const scale = Math.random() * 0.5 + 0.5;
+            
+            heart.innerHTML = randomIcon;
+            heart.style.left = `${randomLeft}%`;
+            heart.style.fontSize = `${randomSize}px`;
+            heart.style.animationDuration = `${randomDuration}s`;
+            heart.style.animationDelay = `${randomDelay}s`;
+            heart.style.setProperty('--translateX', `${translateX}px`);
+            heart.style.setProperty('--rotate', `${rotate}deg`);
+            heart.style.setProperty('--scale', scale);
+            
+            movingHearts.appendChild(heart);
+            
+            // Remove and create new heart after animation ends
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+                createHeart();
+            });
+        }
+        
+        // Button functionality
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const message = document.getElementById('message');
+        
+        yesBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            message.textContent = "I'm so happy! I can't wait to see you! ❤️";
+            message.classList.add('show');
+            
+            // Create explosion of particles
+            createParticleExplosion();
+            
+            // Send webhook
+            sendWebhook('yes');
+            
+            // Add confetti effect
+            for (let i = 0; i < 100; i++) {
+                createConfetti();
+            }
+        });
+        
+        let noBtnClicks = 0;
+        let originalPosition = { x: 0, y: 0 };
+        let runningAway = false;
+        
+        noBtn.addEventListener('mouseover', function(e) {
+            if (noBtnClicks < 3 && !runningAway) {
+                runningAway = true;
+                // Move the button away from the mouse in a more dramatic way
+                const containerRect = document.querySelector('.container').getBoundingClientRect();
+                const buttonRect = this.getBoundingClientRect();
+                
+                // Calculate available space
+                const maxX = containerRect.width - buttonRect.width - 80;
+                const maxY = containerRect.height - buttonRect.height - 80;
+                
+                // Get current position relative to mouse
+                const currentX = buttonRect.x - containerRect.x;
+                const currentY = buttonRect.y - containerRect.y;
+                
+                // Get mouse position relative to container
+                const mouseX = e.clientX - containerRect.x;
+                const mouseY = e.clientY - containerRect.y;
+                
+                // Move away from mouse
+                let newX, newY;
+                
+                if (mouseX > currentX) {
+                    newX = Math.max(20, currentX - Math.random() * 150 - 50);
+                } else {
+                    newX = Math.min(maxX, currentX + Math.random() * 150 + 50);
+                }
+                
+                if (mouseY > currentY) {
+                    newY = Math.max(20, currentY - Math.random() * 100 - 50);
+                } else {
+                    newY = Math.min(maxY, currentY + Math.random() * 100 + 50);
+                }
+                
+                this.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                this.style.transform = `translate(${newX - currentX}px, ${newY - currentY}px)`;
+                
+                setTimeout(() => {
+                    runningAway = false;
+                }, 500);
+            }
+        });
+        
+        noBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            noBtnClicks++;
+            
+            if (noBtnClicks === 1) {
+                message.textContent = "Are you sure? Please give us another chance...";
+                message.classList.add('show');
+                // Send webhook
+                sendWebhook('no_1');
+            } else if (noBtnClicks === 2) {
+                message.textContent = "Just think about it a little more?";
+                // Send webhook
+                sendWebhook('no_2');
+            } else {
+                message.textContent = "I understand. I'll be here when you're ready. ❤️";
+                this.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                this.style.transform = 'translate(0, 0)';
+                // Send webhook
+                sendWebhook('no_3');
+            }
+        });
+        
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd', '#f9bec7'];
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.width = `${Math.random() * 10 + 5}px`;
+            confetti.style.height = `${Math.random() * 10 + 5}px`;
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+            confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            confetti.style.setProperty('--rotate', `${Math.random() * 360}deg`);
+            
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+        
+        // Create particle explosion
+        function createParticleExplosion() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            
+            for (let i = 0; i < 100; i++) {
+                createLoveParticle(centerX, centerY);
+            }
+        }
+        
+        function createLoveParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random properties
+            const size = Math.random() * 10 + 2;
+            const angle = Math.random() * Math.PI * 2; // Random angle in radians
+            const velocity = Math.random() * 5 + 2; // Random velocity
+            const distance = Math.random() * 150 + 50; // Random distance
+            const duration = Math.random() * 2 + 1; // Random duration
+            
+            // Calculate end position using angle and distance
+            const endX = x + Math.cos(angle) * distance;
+            const endY = y + Math.sin(angle) * distance;
+            
+            // Set initial position and properties
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.backgroundColor = `hsl(${Math.random() * 40 + 340}, 100%, 70%)`;
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            
+            // Append to the container
+            loveParticles.appendChild(particle);
+            
+            // Trigger animation
+            setTimeout(() => {
+                particle.style.transition = `transform ${duration}s ease-out, opacity ${duration}s ease-out`;
+                particle.style.transform = `translate(${endX - x}px, ${endY - y}px)`;
+                particle.style.opacity = '1';
+                
+                setTimeout(() => {
+                    particle.style.opacity = '0';
+                    setTimeout(() => {
+                        particle.remove();
+                    }, duration * 1000);
+                }, duration * 500);
+            }, 10);
+        }
+        
+        // Function to send webhook
+        function sendWebhook(action) {
+            // Replace with your actual webhook URL
+            const webhookUrl = 'https://discord.com/api/webhooks/your-webhook-id/your-webhook-token';
+            
+            // Create embed data
+            const embedData = {
+                username: "Love Reconnection App",
+                embeds: [{
+                    title: "Button Click Notification",
+                    description: `Von has clicked: **${action}**`,
+                    color: action.includes('yes') ? 0xff0066 : 0x5865F2,
+                    timestamp: new Date().toISOString(),
+                    footer: {
+                        text: "Love Reconnection App"
+                    },
+                    fields: [
+                        {
+                            name: "Action",
+                            value: action === 'yes' ? 'Accepted reconnection ❤️' : 
+                                   action === 'no_1' ? 'Declined first time 💔' :
+                                   action === 'no_2' ? 'Declined second time 😢' : 'Final decline 😭'
+                        },
+                        {
+                            name: "Time",
+                            value: new Date().toLocaleString()
+                        }
+                    ]
+                }]
+            };
+            
+            // In a real environment, you'd send this data with fetch
+            console.log("Webhook would send:", embedData);
+            
+            // Example of how to actually send it (commented out as it won't work without a real webhook)
+            /*
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(embedData),
+            })
+            .then(response => console.log('Webhook sent successfully'))
+            .catch(error => console.error('Error sending webhook:', error));
+            */
+        }
+        
+        // Memory cards hover effect enhancement
+        const memories = document.querySelectorAll('.memory');
+        memories.forEach(memory => {
+            memory.addEventListener('mouseover', () => {
+                memories.forEach(m => {
+                    if (m !== memory) {
+                        m.style.opacity = '0.5';
+                        m.style.transform = 'scale(0.95)';
+                    }
+                });
+            });
+            
+            memory.addEventListener('mouseout', () => {
+                memories.forEach(m => {
+                    if (m !== memory) {
+                        m.style.opacity = '1';
+                        m.style.transform = 'scale(1)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
